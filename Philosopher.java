@@ -12,5 +12,15 @@ public class Philosopher extends Thread {
         this.emptyTable = emptyTable;
     }
 
+    private void think() throws InterruptedException {
+        System.out.println("Philosopher " + id + " is thinking.");
+        Thread.sleep((long) (Math.random() * 1000));
+    }
+
+    private void eat() throws InterruptedException {
+        System.out.println("Philosopher " + id + " is eating.");
+        Thread.sleep((long) (Math.random() * 1000));
+    }
+
     
 }
