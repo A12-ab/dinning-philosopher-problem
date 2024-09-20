@@ -22,5 +22,10 @@ public class Philosopher extends Thread {
         Thread.sleep((long) (Math.random() * 1000));
     }
 
+
+    public int getId() {
+        return id;
+    }
+
     
 }
