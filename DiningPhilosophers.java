@@ -24,7 +24,7 @@ public class DiningPhilosophers {
                 char label = (char) ('A' + i * 5 + j);
                 Philosopher philosopher = new Philosopher(label, tables[i], forks[i][j], forks[i][(j + 1) % 5], emptyTable, startTime);
                 philosopherThreads[threadIndex] = new Thread(philosopher);  
-                philosopherThreads[threadIndex].start();  
+                philosopherThreads[threadIndex].start();
                 threadIndex++;
             }
         }
