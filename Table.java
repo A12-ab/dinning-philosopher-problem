@@ -33,6 +33,15 @@ public class Table {
         }
         return false; 
     }
+    public void doneEating(Philosopher philosopher, Lock leftFork, Lock rightFork) {
+        leftFork.unlock();
+        rightFork.unlock();
+        System.out.println("Philosopher " + philosopher.getLabel() + " is done eating.");
+    }
+
+    public synchronized boolean detectDeadlock() {
+        return true; 
+    }
 
 
   
