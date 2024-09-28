@@ -46,12 +46,12 @@ public class Philosopher extends Thread {
 
     private void think() throws InterruptedException {
         System.out.println("Philosopher " + label + " is thinking.");
-        Thread.sleep((long) (Math.random() * 2000)); // Think 0- seconds
+        Thread.sleep((long) (Math.random() * 10000)); // Think for 0-10 seconds
     }
 
     private void eat() throws InterruptedException {
         System.out.println("Philosopher " + label + " is eating.");
-        Thread.sleep((long) (Math.random() * 1000)); // Eat 0-1 seconds
+        Thread.sleep((long) (Math.random() * 5000)); // Eat for 0-5 seconds
     }
 
     public char getLabel() {
