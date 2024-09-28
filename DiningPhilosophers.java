@@ -31,7 +31,7 @@ public class DiningPhilosophers {
 
         while (!emptyTable.isDeadlocked()) {
             try {
-                Thread.sleep(100);  // Add a small delay to reduce CPU usage
+                Thread.sleep(100); 
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
             }

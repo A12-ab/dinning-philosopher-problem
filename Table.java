@@ -4,7 +4,7 @@ import java.util.concurrent.locks.ReentrantLock;
 public class Table {
     private final int tableId;
     private final Lock tableLock = new ReentrantLock();
-    private int philosophersAtTable = 5;
+    //private int philosophersAtTable = 5;
 
     public Table(int tableId) {
         this.tableId = tableId;
@@ -15,14 +15,14 @@ public class Table {
         try {
             if (leftFork.tryLock()) {
                 try {
-                    Thread.sleep(4000); // Wait for 4 seconds to pick up the right fork
+                    Thread.sleep(1000);
                     if (rightFork.tryLock()) {
                         return true;
                     } else {
-                        leftFork.unlock(); // If right fork is unavailable, release the left
+                        leftFork.unlock(); 
                     }
                 } finally {
-                    // Make sure to unlock left fork if right not picked
+                    // unlock 
                     if (!rightFork.tryLock()) {
                         leftFork.unlock();
                     }
@@ -40,8 +40,4 @@ public class Table {
         System.out.println("Philosopher " + philosopher.getLabel() + " is done eating.");
     }
 
-    public synchronized boolean detectDeadlock() {
-        // Check for deadlock logic here
-        return true; // Example deadlock detection, adjust logic accordingly
-    }
 }

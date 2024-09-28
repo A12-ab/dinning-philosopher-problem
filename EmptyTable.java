@@ -29,13 +29,11 @@ public class EmptyTable {
     }
 
     public boolean tryToEat(Philosopher philosopher, Lock leftFork, Lock rightFork) {
-        // Philosopher tries to eat at the empty table
         return true;
     }
 
     private synchronized void checkDeadlock() {
         if (philosophers.size() == NUM_PHILOSOPHERS) {
-            // Simple deadlock detection: if all 5 philosophers are at the empty table
             deadlocked = true;
             logger.warning("The empty table has deadlocked.");
             logger.warning("Last philosopher to move to the empty table: " + lastPhilosopherToMove);
