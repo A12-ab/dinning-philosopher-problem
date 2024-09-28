@@ -4,35 +4,36 @@ import java.util.concurrent.locks.ReentrantLock;
 public class Table {
     private final int tableId;
     private final Lock tableLock = new ReentrantLock();
-    private final Lock[] chopsticks = new Lock[5]; 
-    private int philosophersAtTable = 5; 
+    private int philosophersAtTable = 5;
 
     public Table(int tableId) {
         this.tableId = tableId;
-        // added lock to chopstick
-        for (int i = 0; i < 5; i++) {
-            chopsticks[i] = new ReentrantLock();
-        }
     }
 
-    public boolean tryToEat(Philosopher philosopher, Lock[] chopsticks) {
+    public boolean tryToEat(Philosopher philosopher, Lock leftFork, Lock rightFork) throws InterruptedException {
         tableLock.lock();
         try {
-            int leftChopstick = philosopher.getId();
-            int rightChopstick = (philosopher.getId() + 1) % 5;
-
-            if (chopsticks[leftChopstick].tryLock()) {
-                if (chopsticks[rightChopstick].tryLock()) {
-                    return true; // Philosopher duita chopstick peye gese
-                } else {
-                    chopsticks[leftChopstick].unlock(); // jodi right chopstick na pai left er tao chere dicche
+            if (leftFork.tryLock()) {
+                try {
+                    Thread.sleep(4000); // Wait for 4 seconds to pick up the right fork
+                    if (rightFork.tryLock()) {
+                        return true;
+                    } else {
+                        leftFork.unlock(); // If right fork is unavailable, release the left
+                    }
+                } finally {
+                    // Make sure to unlock left fork if right not picked
+                    if (!rightFork.tryLock()) {
+                        leftFork.unlock();
+                    }
                 }
             }
         } finally {
             tableLock.unlock();
         }
-        return false; 
+        return false;
     }
+
     public void doneEating(Philosopher philosopher, Lock leftFork, Lock rightFork) {
         leftFork.unlock();
         rightFork.unlock();
@@ -40,9 +41,7 @@ public class Table {
     }
 
     public synchronized boolean detectDeadlock() {
-        return true; 
+        // Check for deadlock logic here
+        return true; // Example deadlock detection, adjust logic accordingly
     }
-
-
-  
 }
