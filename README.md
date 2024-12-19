@@ -1,0 +1,1 @@
+ It was a lab task of High performance Computing course. In this lab we had to solve dinning philosopher problem using JAVA. I applied multi threading concept here. I wrote the code in such a way that it can avoid deadlock, starvation.
